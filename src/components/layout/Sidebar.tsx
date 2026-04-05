@@ -144,9 +144,8 @@ const Sidebar = () => {
 
     return (
         <aside className="w-64 bg-slate-900 h-screen sticky top-0 flex flex-col p-5 text-slate-400 overflow-y-auto">
-            {/* Logo */}
-            <div className="flex items-center gap-2 mb-8 px-2">
-                <NaoLogo showText={true} className="h-7" />
+            <div className="flex items-center gap-2 mb-12 px-2">
+                <NaoLogo className="h-20 shadow-xl" />
             </div>
 
             {/* User identity chip */}
