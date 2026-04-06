@@ -17,6 +17,7 @@ const CUSTOMER_NAV = [
     { icon: Package, label: 'My Shipments', path: '/dashboard/shipments' },
     { icon: PlusCircle, label: 'Ship New Parcel', path: '/dashboard/shipments/new' },
     { icon: Search, label: 'Track Package', path: '/track' },
+    { icon: Headphones, label: 'Support Center', path: '/dashboard/support' },
 ];
 
 const COURIER_NAV = [
@@ -30,9 +31,7 @@ const WAREHOUSE_NAV = [
     { icon: LayoutDashboard, label: 'Hub Overview', path: '/ops/warehouse' },
     { icon: Inbox, label: 'Incoming Queue', path: '/ops/warehouse/incoming' },
     { icon: Send, label: 'Outgoing Dispatch', path: '/ops/warehouse/outgoing' },
-    { icon: Package, label: 'Inventory List', path: '/ops/warehouse/inventory' },
     { icon: Activity, label: 'My Tasks', path: '/ops/warehouse/tasks' },
-    { icon: PlusCircle, label: 'Receive Goods', path: '/ops/warehouse/stock-in' },
 ];
 
 const SUPPORT_NAV = [
@@ -49,7 +48,6 @@ const ADMIN_NAV = [
         { icon: Users, label: 'User Management', path: '/admin/customers' },
         { icon: AlertCircle, label: 'Customer Complaints', path: '/ops/support/complaints' },
         { icon: Package, label: 'All Shipments', path: '/admin/shipments' },
-        { icon: Warehouse, label: 'System Inventory', path: '/ops/warehouse/inventory' },
     ]},
     // Customer Portal
     { section: 'Customer Portal', items: [
@@ -60,7 +58,6 @@ const ADMIN_NAV = [
     { section: 'Operations', items: [
         { icon: Truck, label: 'Courier Portal', path: '/ops/courier' },
         { icon: Warehouse, label: 'Warehouse Hub', path: '/ops/warehouse' },
-        { icon: Package, label: 'Receive Goods', path: '/ops/warehouse/stock-in' },
         { icon: Headphones, label: 'Support Desk', path: '/ops/support' },
     ]},
 ];
@@ -72,14 +69,20 @@ const NavItem = ({ icon: Icon, label, path }: { icon: any; label: string; path: 
         to={path}
         end={path.split('/').length <= 2}
         className={({ isActive }) => clsx(
-            'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all',
-            isActive ? 'bg-primary text-white shadow-lg shadow-blue-900/40' : 'hover:text-white hover:bg-slate-800'
+            'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all relative group',
+            isActive 
+                ? 'bg-slate-800 text-white shadow-sm border-l-4 border-accent-orange pl-3' 
+                : 'hover:text-white hover:bg-slate-800 text-slate-400'
         )}
     >
-        <Icon className="h-5 w-5 flex-shrink-0" />
+        <Icon className={clsx('h-5 w-5 flex-shrink-0 transition-transform group-hover:scale-110', path === window.location.pathname ? 'text-accent-orange' : '')} />
         {label}
+        {path === window.location.pathname && (
+            <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-accent-orange animate-pulse" />
+        )}
     </NavLink>
 );
+
 
 // ─── Role badge display ───────────────────────────────────────────────────────
 

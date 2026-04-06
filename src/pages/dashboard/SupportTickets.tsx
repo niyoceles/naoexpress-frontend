@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AlertCircle, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
+import { AlertCircle, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2, PlusCircle, X } from 'lucide-react';
 import api from '../../services/api';
 import { clsx } from 'clsx';
+import ComplaintForm from '../../components/complaints/ComplaintForm';
 
 interface Response {
     user: string;
@@ -21,21 +22,25 @@ interface Complaint {
 }
 
 const SupportTickets = () => {
+
     const [complaints, setComplaints] = useState<Complaint[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [isAdding, setIsAdding] = useState(false);
+
+    const fetchComplaints = async () => {
+        setLoading(true);
+        try {
+            const res = await api.get('/complaints/my');
+            setComplaints(res.data.data);
+        } catch (err: any) {
+            setError('Failed to load support tickets.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchComplaints = async () => {
-            try {
-                const res = await api.get('/complaints/my');
-                setComplaints(res.data.data);
-            } catch (err: any) {
-                setError('Failed to load support tickets.');
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchComplaints();
     }, []);
 
@@ -49,7 +54,7 @@ const SupportTickets = () => {
         }
     };
 
-    if (loading) return (
+    if (loading && complaints.length === 0) return (
         <div className="flex h-64 items-center justify-center">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -57,10 +62,46 @@ const SupportTickets = () => {
 
     return (
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
-            <header>
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">My Support Tickets</h1>
-                <p className="text-slate-500 font-medium">Track and manage your reported issues.</p>
+            <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">My Support Tickets</h1>
+                    <p className="text-slate-500 font-medium italic">Track and manage your reported issues.</p>
+                </div>
+                <button 
+                    onClick={() => setIsAdding(true)}
+                    className="flex items-center gap-2 bg-accent-orange text-white px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-tight hover:brightness-110 hover:shadow-xl hover:shadow-orange-100 transition-all active:scale-95 transform shadow-md shadow-orange-100"
+                >
+                    <PlusCircle className="h-5 w-5" />
+                    New Support Ticket
+                </button>
             </header>
+
+            {/* Modal for New Complaint */}
+            {isAdding && (
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="bg-white rounded-[40px] w-full max-w-xl p-8 relative shadow-2xl animate-in fade-in zoom-in duration-300">
+                        <button 
+                            onClick={() => setIsAdding(false)}
+                            className="absolute top-6 right-6 p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition text-slate-400 hover:text-slate-900"
+                        >
+                            <X className="h-6 w-6" />
+                        </button>
+                        
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-black text-slate-900">How can we help?</h2>
+                            <p className="text-slate-500 font-medium">Please provide as much detail as possible for our support team.</p>
+                        </div>
+
+                        <ComplaintForm 
+                            onSuccess={() => {
+                                setIsAdding(false);
+                                fetchComplaints();
+                            }} 
+                        />
+                    </div>
+                </div>
+            )}
+
 
             {error && (
                 <div className="p-4 bg-red-50 text-red-700 rounded-2xl border border-red-100 font-bold">

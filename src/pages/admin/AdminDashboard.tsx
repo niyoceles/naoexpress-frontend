@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
     Package, Users, TrendingUp, Truck, CheckCircle2, XCircle,
-    Clock, BarChart3, ArrowUpRight, Loader2
+    Clock, BarChart3, ArrowUpRight, Loader2, PlusCircle, AlertCircle
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
@@ -136,8 +136,41 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
+            {/* Strategic Quick Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Link to="/admin/customers" className="bg-slate-900 p-6 rounded-[32px] text-white shadow-xl shadow-slate-900/10 hover:shadow-slate-900/20 transition-all group flex flex-col justify-between h-48">
+                    <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Users className="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h4 className="font-black text-lg leading-tight mb-1 tracking-tight">User Directory</h4>
+                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Manage system roles</p>
+                    </div>
+                </Link>
+
+                <Link to="/ops/support/complaints" className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col justify-between h-48">
+                    <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <AlertCircle className="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h4 className="font-black text-slate-900 text-lg leading-tight mb-1 tracking-tight">Support Hub</h4>
+                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Resolve customer issues</p>
+                    </div>
+                </Link>
+
+                <Link to="/admin/shipments" className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col justify-between h-48">
+                    <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Package className="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h4 className="font-black text-slate-900 text-lg leading-tight mb-1 tracking-tight">Fleet Overview</h4>
+                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Manage all shipments</p>
+                    </div>
+                </Link>
+            </div>
+
             {/* Pending Alerts */}
-            <div className="bg-amber-50 border border-amber-100 rounded-3xl p-8 flex items-center gap-6">
+            <div className="bg-amber-50 border border-amber-100 rounded-[40px] p-8 flex items-center gap-8">
                 <div className="bg-amber-100 w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0">
                     <Clock className="h-7 w-7 text-amber-600" />
                 </div>

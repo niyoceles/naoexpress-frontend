@@ -17,6 +17,7 @@ const PublicLayout = () => {
                         <a href="/about" className="hover:text-white transition">About</a>
                         <a href="/services" className="hover:text-white transition">Services</a>
                         <a href="/locations" className="hover:text-white transition">Locations</a>
+                        <a href="/support" className="hover:text-white transition">Support</a>
                         <a href="/terms" className="hover:text-white transition">Terms</a>
                     </div>
                     <div className="text-xs">

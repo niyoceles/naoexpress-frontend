@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import { User, Bell, Search, Settings } from 'lucide-react';
+import { User, Bell, Search, Settings, Headphones } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
 const DashboardLayout = () => {
-    const { name, logout } = useAuth();
+    const { name, logout, role } = useAuth();
     const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
     return (
@@ -24,6 +24,15 @@ const DashboardLayout = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        {role === 'customer' && (
+                            <Link 
+                                to="/dashboard/support?new=true" 
+                                title="Report an Issue"
+                                className="p-2.5 text-rose-500 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100"
+                            >
+                                <Headphones className="h-5 w-5" />
+                            </Link>
+                        )}
                         <button className="relative p-2.5 text-slate-400 hover:text-primary hover:bg-slate-50 rounded-xl transition-all">
                             <Bell className="h-5 w-5" />
                             <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>

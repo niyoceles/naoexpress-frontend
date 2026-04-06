@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Search, Loader2, MapPin, Clock, CheckCircle2, History, AlertCircle } from 'lucide-react';
 import api from '../../services/api';
 import { clsx } from 'clsx';
+import ComplaintForm from '../../components/complaints/ComplaintForm';
 
 const Track = () => {
     const [trackingNumber, setTrackingNumber] = useState('');
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState('');
+    const [showComplaintForm, setShowComplaintForm] = useState(false);
 
     const handleTrack = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,6 +18,7 @@ const Track = () => {
         setLoading(true);
         setError('');
         setData(null);
+        setShowComplaintForm(false);
 
         try {
             const response = await api.get(`/track/${trackingNumber}`);
@@ -69,16 +72,29 @@ const Track = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900 text-white p-8 rounded-3xl">
                         <div>
                             <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2 block">Current Status</span>
-                            <h2 className="text-3xl font-black text-primary capitalize">{data.shipment.status.replace(/_/g, ' ')}</h2>
+                            <div className="flex items-center gap-4">
+                                <h2 className="text-3xl font-black text-primary capitalize">{data.shipment.status.replace(/_/g, ' ')}</h2>
+                                <button 
+                                    onClick={() => setShowComplaintForm(!showComplaintForm)}
+                                    className="bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/20 transition-all">
+                                    Report Problem
+                                </button>
+                            </div>
                             <p className="text-slate-400 mt-2 text-sm">Last Update: {new Date(data.events[0]?.timestamp).toLocaleString()}</p>
                         </div>
                         <div className="flex flex-col justify-end md:items-end">
                             <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2 block">Origin &rarr; Destination</span>
-                            <div className="text-xl font-bold">
+                            <div className="text-xl font-bold text-right">
                                 {data.shipment.sender.city}, {data.shipment.sender.country} &rarr; {data.shipment.receiver.city}, {data.shipment.receiver.country}
                             </div>
                         </div>
                     </div>
+
+                    {showComplaintForm && (
+                        <div className="animate-in zoom-in-95 duration-200">
+                            <ComplaintForm shipmentId={data.shipment._id} />
+                        </div>
+                    )}
 
                     {/* Timeline */}
                     <div className="bg-white p-8 rounded-3xl border border-slate-200">

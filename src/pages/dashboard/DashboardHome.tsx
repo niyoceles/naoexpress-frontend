@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Package, Truck, Clock, CheckCircle2, TrendingUp, PlusCircle, Loader2 } from 'lucide-react';
+import { Package, Truck, Clock, CheckCircle2, TrendingUp, PlusCircle, Loader2, Headphones, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import clsx from 'clsx';
 
 const DashboardHome = () => {
     const [dashboardData, setDashboardData] = useState<any>(null);
@@ -35,7 +36,7 @@ const DashboardHome = () => {
         { label: 'Active Shipments', value: metrics.active, icon: Truck, color: 'text-blue-600', bg: 'bg-blue-50' },
         { label: 'In Transit', value: metrics.inTransit, icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50' },
         { label: 'Delivered', value: metrics.delivered, icon: CheckCircle2, color: 'text-green-600', bg: 'bg-green-50' },
-        { label: 'Total Spent', value: `$${metrics.totalSpent.toLocaleString()}`, icon: TrendingUp, color: 'text-purple-600', bg: 'bg-purple-50' },
+        { label: 'Support & Help', value: 'Resolution Center', icon: Headphones, color: 'text-rose-600', bg: 'bg-rose-50', link: '/dashboard/support' },
     ];
 
     return (
@@ -45,22 +46,31 @@ const DashboardHome = () => {
                     <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Welcome back.</h1>
                     <p className="text-slate-500">Here's what's happening with your shipments today.</p>
                 </div>
-                <Link to="/dashboard/shipments/new" className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg shadow-blue-100">
-                    <PlusCircle className="h-5 w-5" />
-                    Ship New Parcel
-                </Link>
+                <div className="flex items-center gap-4">
+                    <Link to="/dashboard/support?new=true" className="bg-white border border-slate-200 text-slate-700 px-8 py-3.5 rounded-2xl font-bold flex items-center gap-2 hover:bg-slate-50 transition shadow-sm">
+                        <AlertCircle className="h-5 w-5 text-rose-500" />
+                        Report Issue
+                    </Link>
+                    <Link to="/dashboard/shipments/new" className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg shadow-blue-100">
+                        <PlusCircle className="h-5 w-5" />
+                        Ship New Parcel
+                    </Link>
+                </div>
             </header>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
-                    <div key={index} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-100 hover:shadow-md transition group">
+                    <Link key={index} to={stat.link || '#'} className={clsx(
+                        "bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-100 hover:shadow-md transition group",
+                        !stat.link && "cursor-default"
+                    )}>
                         <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                             <stat.icon className="h-7 w-7" />
                         </div>
                         <div className="text-3xl font-black text-slate-900 mb-1">{stat.value}</div>
                         <div className="text-slate-400 text-sm font-bold uppercase tracking-widest">{stat.label}</div>
-                    </div>
+                    </Link>
                 ))}
             </div>
 

@@ -7,35 +7,36 @@ const Home = () => {
         <div className="flex flex-col">
             {/* Hero Section */}
             <section className="relative overflow-hidden pt-20 pb-32 lg:pt-32 lg:pb-52">
-                <div className="absolute top-0 left-0 w-full h-full -z-10 bg-slate-50">
-                    <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-100 rounded-full blur-[120px] opacity-40"></div>
-                    <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-blue-50 rounded-full blur-[100px] opacity-60"></div>
+                <div className="absolute top-0 left-0 w-full h-full -z-10 bg-white">
+                    <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-orange-100 rounded-full blur-[120px] opacity-20"></div>
+                    <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-blue-100 rounded-full blur-[100px] opacity-40"></div>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-orange-50 text-accent-orange text-xs font-bold uppercase tracking-widest mb-6">
+                    <div className="text-center max-w-4xl mx-auto">
+                        <span className="inline-block px-5 py-2 rounded-full bg-orange-100 text-accent-orange text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
                             Fast & Reliable Delivery
                         </span>
-                        <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
-                            Deliver <span className="text-primary italic">Anything,</span> Anywhere.
+                        <h1 className="text-6xl lg:text-8xl font-black text-primary tracking-tight mb-10 leading-[0.95]">
+                            Deliver <span className="text-accent-orange italic">Anything,</span> <br className="hidden lg:block"/> Anywhere.
                         </h1>
-                        <p className="text-xl text-slate-600 mb-10 leading-relaxed">
-                            NAO Express connects businesses and consumers with premium door-to-door delivery, cross-border shipping, and intelligent warehousing.
+                        <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-medium">
+                            Premium door-to-door delivery and cross-border logistics, driven by intelligence and speed.
                         </p>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link to="/track" className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-blue-200 transition-all flex items-center justify-center gap-2">
-                                <Package className="h-5 w-5" />
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                            <Link to="/track" className="w-full sm:w-auto bg-accent-orange text-white px-10 py-5 rounded-2xl font-black text-lg uppercase tracking-tight hover:brightness-110 hover:shadow-2xl hover:shadow-orange-200 transition-all flex items-center justify-center gap-3 active:scale-95 transform">
+                                <Package className="h-6 w-6" />
                                 Track Shipment
                             </Link>
-                            <Link to="/quote" className="w-full sm:w-auto bg-white border border-slate-200 text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                                Get a Quote
-                                <ArrowRight className="h-5 w-5" />
+                            <Link to="/login" className="w-full sm:w-auto bg-white border-2 border-slate-200 text-slate-900 px-10 py-5 rounded-2xl font-black text-lg uppercase tracking-tight hover:bg-slate-50 transition-all flex items-center justify-center gap-3 active:scale-95 transform">
+                                Sign In
+                                <ArrowRight className="h-6 w-6" />
                             </Link>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             {/* Tracking Quick Access */}
             <section className="bg-white py-24 border-y border-slate-100">

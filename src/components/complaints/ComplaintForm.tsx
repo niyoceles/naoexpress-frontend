@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertCircle, Loader2, Send } from 'lucide-react';
 import api from '../../services/api';
+import useAuth from '../../hooks/useAuth';
 
 interface ComplaintFormProps {
     shipmentId?: string;
@@ -8,9 +9,12 @@ interface ComplaintFormProps {
 }
 
 const ComplaintForm: React.FC<ComplaintFormProps> = ({ shipmentId, onSuccess }) => {
+    const { isAuthenticated } = useAuth();
     const [subject, setSubject] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('medium');
+    const [guestEmail, setGuestEmail] = useState('');
+    const [guestPhone, setGuestPhone] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -20,15 +24,20 @@ const ComplaintForm: React.FC<ComplaintFormProps> = ({ shipmentId, onSuccess }) 
         setMessage('');
 
         try {
-            await api.post('/complaints', {
+            const endpoint = isAuthenticated ? '/complaints' : '/complaints/public';
+            await api.post(endpoint, {
                 subject,
                 description,
                 shipmentId,
-                priority
+                priority,
+                guestEmail: !isAuthenticated ? guestEmail : undefined,
+                guestPhone: !isAuthenticated ? guestPhone : undefined
             });
             setMessage('Complaint submitted successfully. Our team will review it shortly.');
             setSubject('');
             setDescription('');
+            setGuestEmail('');
+            setGuestPhone('');
             if (onSuccess) onSuccess();
         } catch (error: any) {
             setMessage(error.response?.data?.message || 'Failed to submit complaint.');
@@ -51,6 +60,35 @@ const ComplaintForm: React.FC<ComplaintFormProps> = ({ shipmentId, onSuccess }) 
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
+                {!isAuthenticated && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                        <div className="md:col-span-2">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-2 block">Guest Contact Info</span>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-black uppercase text-slate-400 tracking-widest mb-2">Email Address</label>
+                            <input 
+                                type="email" 
+                                required 
+                                value={guestEmail} 
+                                onChange={e => setGuestEmail(e.target.value)}
+                                placeholder="For follow-up"
+                                className="w-full px-4 py-3 rounded-xl bg-white border border-slate-100 outline-none focus:ring-2 focus:ring-primary transition"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-black uppercase text-slate-400 tracking-widest mb-2">Phone (Optional)</label>
+                            <input 
+                                type="tel" 
+                                value={guestPhone} 
+                                onChange={e => setGuestPhone(e.target.value)}
+                                placeholder="+250..."
+                                className="w-full px-4 py-3 rounded-xl bg-white border border-slate-100 outline-none focus:ring-2 focus:ring-primary transition"
+                            />
+                        </div>
+                    </div>
+                )}
+
                 <div>
                     <label className="block text-xs font-black uppercase text-slate-400 tracking-widest mb-2">Subject</label>
                     <input 

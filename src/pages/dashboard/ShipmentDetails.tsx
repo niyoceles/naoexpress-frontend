@@ -176,20 +176,49 @@ const ShipmentDetails = () => {
                     </div>
 
                     {/* Parcel Summary */}
-                    <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-                        <h3 className="font-bold text-slate-900 text-lg mb-6">Cargo Summary</h3>
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div>
-                                <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Service</span>
-                                <span className="font-bold capitalize">{shipment.type} Express</span>
+                    <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-8">
+                        <div>
+                            <h3 className="font-bold text-slate-900 text-lg mb-6 flex items-center gap-2">
+                                <Package className="h-5 w-5 text-purple-500" />
+                                Cargo Summary
+                            </h3>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 pb-6 border-b border-slate-50">
+                                <div>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Service Type</span>
+                                    <span className="font-bold capitalize">{shipment.type} Express</span>
+                                </div>
+                                <div>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Total Weight</span>
+                                    <span className="font-bold">{shipment.totalWeight} kg</span>
+                                </div>
+                                <div>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Pieces</span>
+                                    <span className="font-bold">{shipment.parcels.length} Items</span>
+                                </div>
                             </div>
-                            <div>
-                                <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Total Weight</span>
-                                <span className="font-bold">{shipment.totalWeight} kg</span>
-                            </div>
-                            <div>
-                                <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Pieces</span>
-                                <span className="font-bold">{shipment.parcels.length} Items</span>
+                        </div>
+
+                        <div className="space-y-4">
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Itemized Manifest</h4>
+                            <div className="space-y-3">
+                                {shipment.parcels.map((p: any, i: number) => (
+                                    <div key={i} className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-100 font-bold text-xs text-slate-400">
+                                            {i + 1}
+                                        </div>
+                                        <div>
+                                            <div className="font-black text-slate-900 mb-0.5">{p.name || 'Unnamed Parcel'}</div>
+                                            <div className="text-sm text-slate-500 leading-relaxed font-medium">
+                                                {p.description || 'No description provided.'}
+                                            </div>
+                                            <div className="mt-2 flex items-center gap-3">
+                                                <span className="px-2 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-bold text-slate-400">
+                                                    Weight: {p.weight}kg
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>

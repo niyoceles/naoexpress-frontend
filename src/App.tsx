@@ -10,6 +10,7 @@ import useAuth from './hooks/useAuth';
 // ── Public ──────────────────────────────────────────────────────────────────
 const Home         = lazy(() => import('./pages/public/Home'));
 const Track        = lazy(() => import('./pages/public/Track'));
+const GuestSupport = lazy(() => import('./pages/public/GuestSupport'));
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
 const Login = lazy(() => import('./pages/auth/Login'));
@@ -18,6 +19,7 @@ const Login = lazy(() => import('./pages/auth/Login'));
 const DashboardHome    = lazy(() => import('./pages/dashboard/DashboardHome'));
 const ShipmentsList    = lazy(() => import('./pages/dashboard/ShipmentsList'));
 const NewShipment      = lazy(() => import('./pages/dashboard/NewShipment'));
+const SupportCenter    = lazy(() => import('./pages/dashboard/SupportCenter'));
 const ShipmentDetails  = lazy(() => import('./pages/dashboard/ShipmentDetails'));
 const Profile          = lazy(() => import('./pages/dashboard/Profile'));
 const SupportTickets   = lazy(() => import('./pages/dashboard/SupportTickets'));
@@ -35,8 +37,6 @@ const ActiveDelivery   = lazy(() => import('./pages/operations/courier/ActiveDel
 const WarehouseDashboard = lazy(() => import('./pages/operations/warehouse/WarehouseDashboard'));
 const IncomingQueue      = lazy(() => import('./pages/operations/warehouse/IncomingQueue'));
 const OutgoingQueue      = lazy(() => import('./pages/operations/warehouse/OutgoingQueue'));
-const StockIn            = lazy(() => import('./pages/operations/warehouse/StockIn'));
-const InventoryList      = lazy(() => import('./pages/operations/warehouse/InventoryList'));
 
 // ── Support ───────────────────────────────────────────────────────────────────
 const SupportDashboard = lazy(() => import('./pages/operations/support/SupportDashboard'));
@@ -72,6 +72,7 @@ function App() {
                 <Route element={<PublicLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/track" element={<Track />} />
+                    <Route path="/support" element={<GuestSupport />} />
                 </Route>
 
                 {/* Auth */}
@@ -85,7 +86,8 @@ function App() {
                     <Route path="shipments" element={<ShipmentsList />} />
                     <Route path="shipments/new" element={<NewShipment />} />
                     <Route path="shipments/:id" element={<ShipmentDetails />} />
-                    <Route path="support" element={<SupportTickets />} />
+                    <Route path="support" element={<SupportCenter />} />
+                    <Route path="support/tickets" element={<SupportTickets />} />
                 </Route>
 
                 {/* ── Admin Portal ───────────────────────── */}
@@ -113,8 +115,6 @@ function App() {
                     <Route index element={<WarehouseDashboard />} />
                     <Route path="incoming" element={<IncomingQueue />} />
                     <Route path="outgoing" element={<OutgoingQueue />} />
-                    <Route path="stock-in" element={<StockIn />} />
-                    <Route path="inventory" element={<InventoryList />} />
                 </Route>
 
                 {/* ── Support Portal ─────────────────────── */}
