@@ -36,7 +36,6 @@ const DashboardHome = () => {
         { label: 'Active Shipments', value: metrics.active, icon: Truck, color: 'text-blue-600', bg: 'bg-blue-50' },
         { label: 'In Transit', value: metrics.inTransit, icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50' },
         { label: 'Delivered', value: metrics.delivered, icon: CheckCircle2, color: 'text-green-600', bg: 'bg-green-50' },
-        { label: 'Support & Help', value: 'Resolution Center', icon: Headphones, color: 'text-rose-600', bg: 'bg-rose-50', link: '/dashboard/support' },
     ];
 
     return (
@@ -47,10 +46,6 @@ const DashboardHome = () => {
                     <p className="text-slate-500">Here's what's happening with your shipments today.</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Link to="/dashboard/support?new=true" className="bg-white border border-slate-200 text-slate-700 px-8 py-3.5 rounded-2xl font-bold flex items-center gap-2 hover:bg-slate-50 transition shadow-sm">
-                        <AlertCircle className="h-5 w-5 text-rose-500" />
-                        Report Issue
-                    </Link>
                     <Link to="/dashboard/shipments/new" className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg shadow-blue-100">
                         <PlusCircle className="h-5 w-5" />
                         Ship New Parcel
@@ -61,16 +56,13 @@ const DashboardHome = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
-                    <Link key={index} to={stat.link || '#'} className={clsx(
-                        "bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-100 hover:shadow-md transition group",
-                        !stat.link && "cursor-default"
-                    )}>
+                    <div key={index} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-100 group transition-all hover:shadow-md">
                         <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                             <stat.icon className="h-7 w-7" />
                         </div>
                         <div className="text-3xl font-black text-slate-900 mb-1">{stat.value}</div>
                         <div className="text-slate-400 text-sm font-bold uppercase tracking-widest">{stat.label}</div>
-                    </Link>
+                    </div>
                 ))}
             </div>
 

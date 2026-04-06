@@ -10,7 +10,9 @@ import useAuth from './hooks/useAuth';
 // ── Public ──────────────────────────────────────────────────────────────────
 const Home         = lazy(() => import('./pages/public/Home'));
 const Track        = lazy(() => import('./pages/public/Track'));
-const GuestSupport = lazy(() => import('./pages/public/GuestSupport'));
+const Services     = lazy(() => import('./pages/public/Services'));
+const Locations    = lazy(() => import('./pages/public/Locations'));
+const GuestSupport = lazy(() => import('./pages/public/ContactUs'));
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
 const Login = lazy(() => import('./pages/auth/Login'));
@@ -42,6 +44,7 @@ const OutgoingQueue      = lazy(() => import('./pages/operations/warehouse/Outgo
 const SupportDashboard = lazy(() => import('./pages/operations/support/SupportDashboard'));
 const ShipmentSearch   = lazy(() => import('./pages/operations/support/ShipmentSearch'));
 const ComplaintsManagement = lazy(() => import('./pages/operations/support/ComplaintsManagement'));
+const ContactManagement = lazy(() => import('./pages/operations/support/ContactManagement'));
 
 // ── Guards ───────────────────────────────────────────────────────────────────
 
@@ -72,6 +75,8 @@ function App() {
                 <Route element={<PublicLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/track" element={<Track />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/locations" element={<Locations />} />
                     <Route path="/support" element={<GuestSupport />} />
                 </Route>
 
@@ -124,6 +129,7 @@ function App() {
                     <Route index element={<SupportDashboard />} />
                     <Route path="search" element={<ShipmentSearch />} />
                     <Route path="complaints" element={<ComplaintsManagement />} />
+                    <Route path="contacts" element={<ContactManagement />} />
                     <Route path="escalations" element={<SupportDashboard />} />
                 </Route>
 

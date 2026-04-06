@@ -15,7 +15,7 @@ const Navbar = () => {
                             <Link to="/track" className="hover:text-primary transition-colors">Track</Link>
                             <Link to="/services" className="hover:text-primary transition-colors">Services</Link>
                             <Link to="/locations" className="hover:text-primary transition-colors">Locations</Link>
-                            <Link to="/support" className="hover:text-primary transition-colors">Support</Link>
+                            <Link to="/support" className="hover:text-primary transition-colors">Contact Us</Link>
                         </div>
                     </div>
                     

@@ -5,7 +5,7 @@ import {
     LayoutDashboard, Package, PlusCircle, Search, LogOut, Truck,
     CreditCard, Upload, BarChart3, Users, ShieldCheck, Briefcase,
     Warehouse, Headphones, MapPin, ClipboardList, ArrowRight,
-    CheckCircle2, AlertCircle, FileSearch, Inbox, Send, User, Calculator, Activity
+    CheckCircle2, AlertCircle, FileSearch, Inbox, Send, User, Calculator, Activity, Mail
 } from 'lucide-react';
 import NaoLogo from '../common/NaoLogo';
 import useAuth from '../../hooks/useAuth';
@@ -17,7 +17,6 @@ const CUSTOMER_NAV = [
     { icon: Package, label: 'My Shipments', path: '/dashboard/shipments' },
     { icon: PlusCircle, label: 'Ship New Parcel', path: '/dashboard/shipments/new' },
     { icon: Search, label: 'Track Package', path: '/track' },
-    { icon: Headphones, label: 'Support Center', path: '/dashboard/support' },
 ];
 
 const COURIER_NAV = [
@@ -38,6 +37,7 @@ const SUPPORT_NAV = [
     { icon: LayoutDashboard, label: 'Support Dashboard', path: '/ops/support' },
     { icon: FileSearch, label: 'Search Shipments', path: '/ops/support/search' },
     { icon: AlertCircle, label: 'Complaints Hub', path: '/ops/support/complaints' },
+    { icon: Mail, label: 'Inquiries', path: '/ops/support/contacts' },
     { icon: AlertCircle, label: 'Escalations', path: '/ops/support/escalations' },
 ];
 
@@ -46,7 +46,8 @@ const ADMIN_NAV = [
     { section: 'Admin Control', items: [
         { icon: ShieldCheck, label: 'Overview', path: '/admin' },
         { icon: Users, label: 'User Management', path: '/admin/customers' },
-        { icon: AlertCircle, label: 'Customer Complaints', path: '/ops/support/complaints' },
+        { icon: AlertCircle, label: 'Complaints', path: '/ops/support/complaints' },
+        { icon: Mail, label: 'Inquiries', path: '/ops/support/contacts' },
         { icon: Package, label: 'All Shipments', path: '/admin/shipments' },
     ]},
     // Customer Portal

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AlertCircle, CheckCircle2, MessageSquare, Clock, Send, User, ChevronRight, Loader2, Package } from 'lucide-react';
+import { AlertCircle, CheckCircle2, MessageSquare, Clock, Send, User, ChevronRight, Loader2, Package, Mail, Phone, ExternalLink } from 'lucide-react';
 import api from '../../../services/api';
+import { Link } from 'react-router-dom';
 import { clsx } from 'clsx';
 
 interface UserInfo {
@@ -22,7 +23,9 @@ interface Complaint {
     description: string;
     status: 'open' | 'in_progress' | 'resolved' | 'closed';
     priority: 'low' | 'medium' | 'high' | 'urgent';
-    userId: UserInfo;
+    userId?: UserInfo;
+    guestEmail?: string;
+    guestPhone?: string;
     shipmentId?: { _id: string; trackingNumber: string };
     responses: Response[];
     createdAt: string;
@@ -131,7 +134,9 @@ const ComplaintsManagement = () => {
                                 <span className="text-[10px] font-bold opacity-60">{new Date(c.createdAt).toLocaleDateString()}</span>
                             </div>
                             <h4 className="font-bold text-sm truncate uppercase tracking-tight">{c.subject}</h4>
-                            <p className={clsx("text-xs mt-1 truncate", selectedId === c._id ? "text-slate-400" : "text-slate-400")}>From: {c.userId.name}</p>
+                            <p className={clsx("text-xs mt-1 truncate", selectedId === c._id ? "text-slate-400" : "text-slate-400")}>
+                                From: {c.userId?.name || c.guestEmail}
+                            </p>
                         </button>
                     ))}
                 </div>
@@ -145,12 +150,21 @@ const ComplaintsManagement = () => {
                             <div className="space-y-1">
                                 <h3 className="text-2xl font-black text-slate-900 tracking-tight">{selected.subject}</h3>
                                 <div className="flex items-center gap-4 text-xs font-bold text-slate-500">
-                                    <span className="flex items-center gap-1"><User className="h-3 w-3" /> {selected.userId.name}</span>
+                                    {selected.userId ? (
+                                        <span className="flex items-center gap-1"><User className="h-3 w-3" /> {selected.userId.name}</span>
+                                    ) : (
+                                        <>
+                                            <span className="flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full"><Mail className="h-3 w-3" /> {selected.guestEmail}</span>
+                                            {selected.guestPhone && (
+                                                <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full"><Phone className="h-3 w-3" /> {selected.guestPhone}</span>
+                                            )}
+                                        </>
+                                    )}
                                     <span className="flex items-center gap-1 font-mono uppercase tracking-widest"><AlertCircle className="h-3 w-3" /> {selected.priority} Priority</span>
                                     {selected.shipmentId && (
-                                        <span className="text-primary flex items-center gap-1 bg-blue-50 px-2 py-0.5 rounded-full">
-                                            <Package className="h-3 w-3" /> TRK: {selected.shipmentId.trackingNumber}
-                                        </span>
+                                        <Link to={`/admin/shipments`} className="text-primary flex items-center gap-1 bg-blue-50 px-2 py-0.5 rounded-full hover:bg-blue-100 transition">
+                                            <Package className="h-3 w-3" /> {selected.shipmentId.trackingNumber} <ExternalLink className="h-2 w-2" />
+                                        </Link>
                                     )}
                                 </div>
                             </div>
@@ -172,7 +186,7 @@ const ComplaintsManagement = () => {
                             {/* Customer Message */}
                             <div className="flex gap-4">
                                 <div className="w-10 h-10 rounded-2xl bg-primary text-white flex items-center justify-center font-black flex-shrink-0 shadow-lg shadow-blue-200">
-                                    {selected.userId.name.charAt(0)}
+                                    {selected.userId?.name?.charAt(0) || selected.guestEmail?.charAt(0).toUpperCase() || 'G'}
                                 </div>
                                 <div className="bg-blue-50 rounded-3xl rounded-tl-none p-6 text-slate-900 max-w-2xl shadow-sm border border-blue-100">
                                     <p className="font-medium whitespace-pre-wrap">{selected.description}</p>

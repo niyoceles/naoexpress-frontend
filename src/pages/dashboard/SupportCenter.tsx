@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Headphones, AlertCircle, Plus, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2, Package, Search } from 'lucide-react';
+import { Headphones, AlertCircle, Plus, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2, Package, Search, PlusCircle } from 'lucide-react';
 import api from '../../services/api';
 import { Link, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
@@ -112,14 +112,32 @@ const SupportCenter = () => {
                            </div>
                         </div>
 
+                        <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
+                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
+                                <Headphones className="h-20 w-20" />
+                             </div>
+                             <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-6">Direct Assistance</h3>
+                             <div className="space-y-4">
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                    <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center flex-shrink-0">
+                                        <PlusCircle className="h-5 w-5" />
+                                    </div>
+                                    <div className="text-xs font-bold text-slate-600">+250 788 550 184</div>
+                                </div>
+                                <p className="text-[10px] font-medium text-slate-400 leading-relaxed italic">
+                                    Based in Kicukiro, our local team is available for direct calls during business hours.
+                                </p>
+                             </div>
+                        </div>
+
                         <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-                            <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-6">Quick Links</h3>
+                            <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-6">Quick Tracking</h3>
                             <nav className="space-y-3">
-                                <Link to="/track" className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition group">
+                                <Link to="/track" className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition group group-hover:border-primary border border-transparent">
                                     <span className="font-bold text-slate-700">Tracking Search</span>
                                     <Search className="h-4 w-4 text-slate-400 group-hover:text-primary transition" />
                                 </Link>
-                                <Link to="/dashboard/shipments" className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition group">
+                                <Link to="/dashboard/shipments" className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition group group-hover:border-primary border border-transparent">
                                     <span className="font-bold text-slate-700">My Deliveries</span>
                                     <Package className="h-4 w-4 text-slate-400 group-hover:text-primary transition" />
                                 </Link>

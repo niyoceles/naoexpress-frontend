@@ -32,3 +32,9 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
+@layer base {
+  a, button {
+    @apply transition-all duration-300 ease-out;
+  }
+}
+
