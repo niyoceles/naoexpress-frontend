@@ -92,7 +92,7 @@ const Register = () => {
                             <div className="relative">
                                 <Phone className="absolute left-4 top-3.5 h-5 w-5 text-slate-400" />
                                 <input name="phone" type="tel" value={formData.phone} onChange={handleChange}
-                                    placeholder="+1 (555) 000-0000"
+                                    placeholder="+250 7..."
                                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50 outline-none focus:ring-2 focus:ring-primary focus:bg-white transition" />
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AlertCircle, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2, PlusCircle, X } from 'lucide-react';
+import { AlertCircle, MessageSquare, Clock, CheckCircle2, ChevronRight, Loader2, PlusCircle, X, Package } from 'lucide-react';
 import api from '../../services/api';
+import { Link } from 'react-router-dom';
 import { clsx } from 'clsx';
 import ComplaintForm from '../../components/complaints/ComplaintForm';
 
@@ -17,7 +18,8 @@ interface Complaint {
     status: 'open' | 'in_progress' | 'resolved' | 'closed';
     priority: string;
     createdAt: string;
-    shipmentId?: { trackingNumber: string };
+    trackingNumber?: string;
+    shipmentId?: { _id: string; trackingNumber: string };
     responses: Response[];
 }
 
@@ -136,10 +138,15 @@ const SupportTickets = () => {
                                         <Clock className="h-3 w-3" />
                                         {new Date(ticket.createdAt).toLocaleDateString()}
                                     </div>
-                                    {ticket.shipmentId && (
-                                        <div className="text-xs font-bold text-primary">
-                                            Shipment: {ticket.shipmentId.trackingNumber}
-                                        </div>
+                                    {(ticket.shipmentId || ticket.trackingNumber) && (
+                                        <Link 
+                                            to={ticket.shipmentId ? `/dashboard/shipments/${(ticket.shipmentId as any)._id}` : `/track?number=${ticket.trackingNumber}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs font-bold text-primary hover:underline flex items-center justify-end gap-1 px-3 py-1 bg-blue-50 rounded-lg"
+                                        >
+                                            <Package className="h-3 w-3" /> {ticket.shipmentId?.trackingNumber || ticket.trackingNumber}
+                                        </Link>
                                     )}
                                 </div>
                             </div>

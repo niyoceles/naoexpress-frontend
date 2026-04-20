@@ -26,6 +26,7 @@ interface Complaint {
     userId?: UserInfo;
     guestEmail?: string;
     guestPhone?: string;
+    trackingNumber?: string;
     shipmentId?: { _id: string; trackingNumber: string };
     responses: Response[];
     createdAt: string;
@@ -161,9 +162,14 @@ const ComplaintsManagement = () => {
                                         </>
                                     )}
                                     <span className="flex items-center gap-1 font-mono uppercase tracking-widest"><AlertCircle className="h-3 w-3" /> {selected.priority} Priority</span>
-                                    {selected.shipmentId && (
-                                        <Link to={`/admin/shipments`} className="text-primary flex items-center gap-1 bg-blue-50 px-2 py-0.5 rounded-full hover:bg-blue-100 transition">
-                                            <Package className="h-3 w-3" /> {selected.shipmentId.trackingNumber} <ExternalLink className="h-2 w-2" />
+                                    {(selected.shipmentId || selected.trackingNumber) && (
+                                        <Link 
+                                            to={selected.shipmentId ? `/dashboard/shipments/${selected.shipmentId._id}` : `/ops/support/search?trackingNumber=${selected.trackingNumber}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary flex items-center gap-1 bg-blue-50 px-2 py-0.5 rounded-full hover:bg-blue-100 transition whitespace-nowrap"
+                                        >
+                                            <Package className="h-3 w-3" /> {selected.shipmentId?.trackingNumber || selected.trackingNumber} <ExternalLink className="h-2 w-2" />
                                         </Link>
                                     )}
                                 </div>

@@ -188,10 +188,15 @@ const SupportCenter = () => {
                                         </p>
                                         <div className="flex items-center justify-between pt-4 border-t border-slate-50 pl-14">
                                             <div className="flex items-center gap-2">
-                                                {c.shipmentId && (
-                                                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-full text-[10px] font-bold text-slate-500">
-                                                        <Package className="h-3 w-3" /> {c.shipmentId.trackingNumber || 'Processing...'}
-                                                    </div>
+                                                {(c.shipmentId?.trackingNumber || c.trackingNumber) && (
+                                                    <Link 
+                                                        to={c.shipmentId?._id ? `/dashboard/shipments/${c.shipmentId._id}` : `/track?number=${c.trackingNumber}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-primary rounded-full text-[10px] font-bold hover:bg-blue-100 transition whitespace-nowrap"
+                                                    >
+                                                        <Package className="h-3 w-3" /> {c.shipmentId?.trackingNumber || c.trackingNumber}
+                                                    </Link>
                                                 )}
                                                 <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-full text-[10px] font-bold text-slate-500">
                                                     <MessageSquare className="h-3 w-3" /> {c.responses?.length || 0} Responses

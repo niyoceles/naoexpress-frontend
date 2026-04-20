@@ -89,7 +89,7 @@ const ComplaintForm: React.FC<ComplaintFormProps> = ({ shipmentId, initialTracki
                                 required
                                 value={phone} 
                                 onChange={e => setPhone(e.target.value)}
-                                placeholder="+250..."
+                                placeholder="+250 7..."
                                 className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-600 transition text-sm"
                             />
                         </div>

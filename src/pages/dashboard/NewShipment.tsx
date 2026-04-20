@@ -115,7 +115,7 @@ const NewShipment = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-black uppercase text-slate-400 tracking-widest pl-1">Phone Number</label>
-                                    <input required type="text" value={formData.sender.phone} onChange={(e) => setFormData({...formData, sender: {...formData.sender, phone: e.target.value}})} className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:ring-2 focus:ring-primary focus:bg-white transition" />
+                                    <input required type="text" value={formData.sender.phone} onChange={(e) => setFormData({...formData, sender: {...formData.sender, phone: e.target.value}})} placeholder="+250 7..." className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:ring-2 focus:ring-primary focus:bg-white transition" />
                                 </div>
                             </div>
                             <div className="space-y-2">
@@ -152,7 +152,7 @@ const NewShipment = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-black uppercase text-slate-400 tracking-widest pl-1">Phone Number</label>
-                                    <input required type="text" value={formData.receiver.phone} onChange={(e) => setFormData({...formData, receiver: {...formData.receiver, phone: e.target.value}})} className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:ring-2 focus:ring-primary focus:bg-white transition" />
+                                    <input required type="text" value={formData.receiver.phone} onChange={(e) => setFormData({...formData, receiver: {...formData.receiver, phone: e.target.value}})} placeholder="+250 7..." className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:ring-2 focus:ring-primary focus:bg-white transition" />
                                 </div>
                             </div>
                             <div className="space-y-2">

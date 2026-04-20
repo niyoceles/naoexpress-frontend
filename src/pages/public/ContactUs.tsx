@@ -137,7 +137,7 @@ const ContactUs = () => {
                                             required 
                                             value={phone} 
                                             onChange={e => setPhone(e.target.value)}
-                                            placeholder="+1-555-000-0000"
+                                            placeholder="+250 7..."
                                             className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white transition"
                                         />
                                     </div>
